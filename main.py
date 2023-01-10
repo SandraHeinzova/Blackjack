@@ -12,7 +12,7 @@ def game():
               )
               print("It´s a draw!")
               
-          elif computer_score == 0:
+          elif computer_score == 21:
               print(f"Your final hand: {user_cards}, final score {user_score}")
               print(
                   f"Computer´s final hand: {computer_cards}, final score {computer_score}"
@@ -26,7 +26,7 @@ def game():
               )
               print("You went over! You lose!")
              
-          elif user_score == 0:
+          elif user_score == 21:
               print(f"Your final hand: {user_cards}, final score {user_score}")
               print(
                   f"Computer´s final hand: {computer_cards}, final score {computer_score}"
@@ -79,9 +79,6 @@ def game():
                 list_of_cards.remove(11)
                 list_of_cards.append(1)
         score = sum(list_of_cards)
-        if score == 21:
-            score = 0
-
         return score
     
     user_score = calculate_score(user_cards)
@@ -89,27 +86,35 @@ def game():
     print(f"Your cards: {user_cards}, actual score: {user_score}")
     print(f"Computer first card: {computer_cards[0]}")
     
-    if computer_score == 0 or user_score == 0 or user_score > 21:
-       compare(user_score, computer_score)
-    else: 
-           
-      another_card = input("Would you like another card? Type 'y' if yes, type 'n' to pass.: ")
-      if another_card == "y":
-          while True:
-                if computer_score == 0 or user_score == 0 or user_score > 21:
-                  compare(user_score, computer_score)
-                  break
+    if computer_score == 21 or user_score == 21 or user_score > 21:
+        while computer_score < 17:
+                computer_cards.append(deal_card())
+                computer_score = calculate_score(computer_cards)
+        compare(user_score, computer_score)
+    else:
+        another_card = input("Would you like another card? Type 'y' if yes, type 'n' to pass.: ")
+        if another_card == "y":
+            while True:
                 user_cards.append(deal_card())
                 user_score = calculate_score(user_cards)
-             
+                           
                 print(f"Your cards: {user_cards}, actual score: {user_score}")
                 print(f"Computer first card: {computer_cards[0]}")
-                if user_score > 21 or computer_score > 21 or user_score == 0:
-                  compare(user_score, computer_score)
-                  return False
+                if user_score == 21 or user_score > 21:
+                    while computer_score < 17:
+                        computer_cards.append(deal_card())
+                        computer_score = calculate_score(computer_cards)
+                    compare(user_score, computer_score)
+                    return False
                 else:
-                  another_card = input("Would you like another card? Type 'y' if yes, type 'n' to pass.: ")
-      else:
+                    another_card = input("Would you like another card? Type 'y' if yes, type 'n' to pass.: ")
+                    if another_card == "n":
+                        while computer_score < 17:
+                            computer_cards.append(deal_card())
+                            computer_score = calculate_score(computer_cards)
+                        compare(user_score, computer_score)
+                        return False
+        else:
             while computer_score < 17:
                 computer_cards.append(deal_card())
                 computer_score = calculate_score(computer_cards)
