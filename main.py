@@ -13,11 +13,14 @@ def game():
               print("It´s a draw!")
               
           elif computer_score == 21:
-              print(f"Your final hand: {user_cards}, final score {user_score}")
-              print(
-                  f"Computer´s final hand: {computer_cards}, final score {computer_score}"
-              )
-              print("Oponent have a Blackjack! You lose!")
+                if len(computer_cards) == 2:
+                    print(f"Your final hand: {user_cards}, final score {user_score}")
+                    print(f"Computer´s final hand: {computer_cards}, final score {computer_score}")
+                    print("Oponent have a Blackjack! You lose!")
+                else: 
+                    print(f"Your final hand: {user_cards}, final score {user_score}")
+                    print(f"Computer´s final hand: {computer_cards}, final score {computer_score}")
+                    print("You lose!")
               
           elif user_score > 21:
               print(f"Your final hand: {user_cards}, final score {user_score}")
@@ -27,11 +30,15 @@ def game():
               print("You went over! You lose!")
              
           elif user_score == 21:
-              print(f"Your final hand: {user_cards}, final score {user_score}")
-              print(
-                  f"Computer´s final hand: {computer_cards}, final score {computer_score}"
-              )
-              print("You win with Blackjack!")
+                if len(user_cards) == 2:
+                    print(f"Your final hand: {user_cards}, final score {user_score}")
+                    print(f"Computer´s final hand: {computer_cards}, final score {computer_score}")
+                    print("You win with Blackjack!")
+                else: 
+                    print(f"Your final hand: {user_cards}, final score {user_score}")
+                    print(f"Computer´s final hand: {computer_cards}, final score {computer_score}")
+                    print("You win!")
+                
               
           elif computer_score > 21:
               print(f"Your final hand: {user_cards}, final score {user_score}")
@@ -63,8 +70,8 @@ def game():
     user_cards = []
   
     def deal_card():
-          user_card = random.choice(cards)
-          return user_card
+        user_card = random.choice(cards)
+        return user_card
 
     user_cards = []
     computer_cards = []
